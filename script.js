@@ -34,7 +34,7 @@ let draggedElement = null;
       }
     }
 
-    // Função de toque para dispositivos móveis
+    // Função para eventos de toque
     function handleTouchStart(event) {
       draggedElement = event.target;
     }
@@ -105,6 +105,7 @@ let draggedElement = null;
     function resetPosition(element) {
       const dragContainer = document.getElementById('drag-container');
       dragContainer.appendChild(element);
+      element.style.position = "static";
     }
 
     // Adiciona suporte para toque em dispositivos móveis
@@ -113,3 +114,17 @@ let draggedElement = null;
       img.addEventListener('touchmove', handleTouchMove);
       img.addEventListener('touchend', handleTouchEnd);
     });
+
+    // Reiniciar o jogo
+    function restartGame() {
+      const dropAreas = document.querySelectorAll('.drop-area');
+      dropAreas.forEach(area => {
+        area.innerHTML = area.getAttribute('data-default');
+      });
+
+      const dragContainer = document.getElementById('drag-container');
+      document.querySelectorAll('.drag-container img').forEach(img => {
+        dragContainer.appendChild(img);
+        img.style.position = 'static';
+      });
+    }
